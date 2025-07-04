@@ -163,23 +163,15 @@ def create_app() -> FastAPI:
                     color: #333;
                 }
                 
-                .thinking {
-                    background: #e3f2fd;
-                    color: #1976d2;
-                    font-style: italic;
-                    margin: 10px 0;
+                .debug-info {
+                    background: #fff3e0;
+                    color: #f57c00;
+                    font-size: 12px;
+                    margin: 5px 0;
                     padding: 8px 12px;
                     border-radius: 8px;
-                    border-left: 4px solid #1976d2;
-                }
-                
-                .tools-used {
-                    background: #f3e5f5;
-                    color: #7b1fa2;
-                    margin: 10px 0;
-                    padding: 8px 12px;
-                    border-radius: 8px;
-                    border-left: 4px solid #7b1fa2;
+                    border-left: 3px solid #ff9800;
+                    opacity: 0.8;
                 }
                 
                 .input-area {
@@ -251,6 +243,11 @@ def create_app() -> FastAPI:
                 <div class="header">
                     <h1>🤖 Agentic AI Assistant</h1>
                     <p>Your intelligent assistant with tool calling capabilities</p>
+                    <div style="margin-top: 10px;">
+                        <label style="font-size: 12px; cursor: pointer;">
+                            <input type="checkbox" id="debugMode" style="margin-right: 5px;"> Debug Mode
+                        </label>
+                    </div>
                 </div>
                 
                 <div class="chat-area">
@@ -303,7 +300,7 @@ def create_app() -> FastAPI:
                     input.value = '';
                     sendButton.disabled = true;
                     sendButton.innerHTML = '<div class="loading"></div>';
-                    status.textContent = 'Thinking...';
+                    status.textContent = 'Processing...';
                     
                     // Scroll to bottom
                     messagesDiv.scrollTop = messagesDiv.scrollHeight;
@@ -323,24 +320,28 @@ def create_app() -> FastAPI:
                         const data = await response.json();
                         sessionId = data.session_id;
                         
-                        // Show thinking process if available
-                        if (data.thought_process && data.thought_process.length > 0) {
-                            const thinkingDiv = document.createElement('div');
-                            thinkingDiv.className = 'thinking';
-                            thinkingDiv.innerHTML = '<strong>🧠 Thinking:</strong><br>' + data.thought_process.join('<br>');
-                            messagesDiv.appendChild(thinkingDiv);
+                        // Check if debug mode is enabled
+                        const debugMode = document.getElementById('debugMode').checked;
+                        
+                        // Show debug information if enabled
+                        if (debugMode) {
+                            if (data.thought_process && data.thought_process.length > 0) {
+                                const thinkingDiv = document.createElement('div');
+                                thinkingDiv.className = 'debug-info';
+                                thinkingDiv.innerHTML = '<strong>🧠 Thinking:</strong><br>' + data.thought_process.join('<br>');
+                                messagesDiv.appendChild(thinkingDiv);
+                            }
+                            
+                            if (data.tools_used && data.tools_used.length > 0) {
+                                const toolsDiv = document.createElement('div');
+                                toolsDiv.className = 'debug-info';
+                                const toolsList = data.tools_used.map(tool => `🔧 ${tool.name}`).join(', ');
+                                toolsDiv.innerHTML = '<strong>Tools used:</strong> ' + toolsList;
+                                messagesDiv.appendChild(toolsDiv);
+                            }
                         }
                         
-                        // Show tools used if available
-                        if (data.tools_used && data.tools_used.length > 0) {
-                            const toolsDiv = document.createElement('div');
-                            toolsDiv.className = 'tools-used';
-                            const toolsList = data.tools_used.map(tool => `🔧 ${tool.name}`).join(', ');
-                            toolsDiv.innerHTML = '<strong>Tools used:</strong> ' + toolsList;
-                            messagesDiv.appendChild(toolsDiv);
-                        }
-                        
-                        // Add agent response
+                        // Add agent response (clean, no thinking process or tools shown)
                         const agentDiv = document.createElement('div');
                         agentDiv.className = 'message agent-message';
                         agentDiv.innerHTML = data.response.replace(/\\n/g, '<br>');
