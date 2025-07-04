@@ -2,6 +2,14 @@
 
 Deploy your CIDion AI assistant for free with a public URL!
 
+## 🔒 Security First
+
+**⚠️ Before deploying, ensure security:**
+- Your `.env` file is excluded from git (check `.gitignore`)
+- Never commit API keys to your repository
+- Use platform environment variables for production
+- Review [SECURITY.md](SECURITY.md) for detailed guidelines
+
 ## 🌟 Quick Deploy Options
 
 ### 1. **Render.com (Recommended - Easiest)**

@@ -1,20 +1,19 @@
 # CIDion AI - Intelligent Assistant with Tool Calling
 
-A complete end-to-end agenti### Via Web Interface
-1. Open http://localhost:8001 in your browser
-2. Type your question: *"Calculate 15 * 27 and explain the result"*
-3. Watch CIDion plan and execute using available tools
-4. Toggle "Debug Mode" to see internal reasoning (optional)system powered by Google Gemini API that demonstrates AI agent capabilities with tool calling, task planning, memory management, and a clean web interface.
+**🌟 Live Demo: [https://cidion-bol-bsdk.onrender.com](https://cidion-bol-bsdk.onrender.com)**
+
+A complete end-to-end agentic AI system powered by Google Gemini API that demonstrates AI agent capabilities with tool calling, task planning, memory management, and a clean web interface.
 
 ## 🚀 Features
 
 - **🤖 AI Agent**: Gemini-1.5-flash powered agent with reasoning and tool calling
-- **🛠️ Tool System**: Extensible tools for file operations, web search, calculations
+- **🛠️ Tool System**: 6 extensible tools for file operations, web search, calculations
 - **🧠 Memory Management**: Persistent conversation and task memory with SQLite
 - **📋 Task Planning**: Multi-step task breakdown and execution
-- **🌐 Web Interface**: Clean, responsive frontend for agent interaction
+- **🌐 Web Interface**: Clean, responsive frontend with modern design
 - **📡 API Backend**: FastAPI-based REST API with full documentation
-- **🔧 Debug Mode**: Optional transparency into agent's thinking process
+- **☁️ Cloud Ready**: Deployed on Render.com with public access
+- **🎨 Custom UI**: Professional interface with Roboto Serif fonts and clean messaging
 
 ## 🏗️ Architecture
 
@@ -28,8 +27,10 @@ copilot/
 │   └── main.py         # Application entry point
 ├── .env                # Environment configuration
 ├── requirements.txt    # Python dependencies
-├── start.sh/.bat       # Easy startup scripts
-└── test_gemini.py      # Integration tests
+├── Dockerfile          # Container configuration
+├── Procfile           # Deployment configuration
+├── render.yaml        # Render.com deployment config
+└── DEPLOY.md          # Deployment guide
 ```
 
 ## 🛠️ Available Tools
@@ -62,6 +63,26 @@ HOST=localhost
 PORT=8001
 ```
 
+### ⚠️ Security Important
+
+**🔒 API Key Protection**
+- Your `.env` file contains sensitive information (API keys)
+- The `.env` file is automatically excluded from git commits via `.gitignore`
+- **Never commit API keys to git repositories**
+- Use `.env.example` as a template for others
+
+**🎯 Getting Your Gemini API Key**
+1. Visit [Google AI Studio](https://makersuite.google.com/app/apikey)
+2. Sign in with your Google account
+3. Click "Create API Key"
+4. Copy the key and paste it in your `.env` file
+
+**🚨 If you accidentally commit API keys:**
+1. Immediately revoke the key at Google AI Studio
+2. Generate a new API key
+3. Update your `.env` file with the new key
+4. Consider using `git filter-branch` to remove from history
+
 ### 3. Start the Application
 
 **Option A: Simple startup**
@@ -81,23 +102,71 @@ python run.py
 ```
 
 ### 4. Access the Application
-- **🌐 Web Interface**: http://localhost:8001
+- **🌐 Live Demo**: https://cidion-bol-bsdk.onrender.com
+- **🏠 Local Web Interface**: http://localhost:8001
 - **📚 API Documentation**: http://localhost:8001/docs
 - **❤️ Health Check**: http://localhost:8001/api/health
 
 ## 💬 Usage Examples
 
-### Via Web Interface
+### Via Live Demo
+1. Visit [https://cidion-bol-bsdk.onrender.com](https://cidion-bol-bsdk.onrender.com)
+2. Wait 30-60 seconds for initial load (free tier limitation)
+3. Type your question: *"Calculate 25 * 17 and explain the result"*
+4. Watch CIDion respond with clean, professional answers
+
+### Via Local Installation
 1. Open http://localhost:8001 in your browser
-2. Type your question: *"Calculate 15 * 27 and explain the result"*
+2. Type your question: *"Search for latest AI news"*
 3. Watch CIDion plan and execute using available tools
-4. Toggle "Debug Mode" to see internal reasoning (optional)
 
 ### Via API
 ```bash
-curl -X POST "http://localhost:8001/api/chat" \
+curl -X POST "https://cidion-bol-bsdk.onrender.com/api/chat" \
   -H "Content-Type: application/json" \
   -d '{
+    "message": "Search for the latest AI news and summarize the top 3 articles"
+  }'
+```
+
+### Python Integration
+```python
+import requests
+
+response = requests.post("https://cidion-bol-bsdk.onrender.com/api/chat", json={
+    "message": "List files in the current directory and read any README file"
+})
+
+result = response.json()
+print(result["response"])
+```
+
+## 🌐 Live Deployment
+
+**Public URL**: [https://cidion-bol-bsdk.onrender.com](https://cidion-bol-bsdk.onrender.com)
+
+### Deployment Features:
+- ✅ **Free hosting** on Render.com
+- ✅ **Public access** - share with anyone
+- ✅ **Auto-deployment** from GitHub
+- ✅ **HTTPS enabled** by default
+- ✅ **Global CDN** for fast access
+
+### Important Notes:
+- **Cold Start**: First request may take 30-60 seconds (free tier)
+- **Sleep Mode**: App sleeps after 15 minutes of inactivity
+- **Wake Up**: Subsequent requests wake the app automatically
+
+## 🚀 Deploy Your Own
+
+Want to deploy your own version? Check out our [deployment guide](DEPLOY.md) for step-by-step instructions for:
+
+- **Render.com** (recommended)
+- **Railway.app**
+- **Fly.io**
+- **Vercel**
+
+All deployment files are included in this repository!
     "message": "Search for the latest AI news and summarize the top 3 articles"
   }'
 ```
@@ -116,7 +185,13 @@ print(result["response"])
 
 ## 🧪 Testing
 
-### Run Integration Test
+### Live Demo Test
+Visit [https://cidion-bol-bsdk.onrender.com](https://cidion-bol-bsdk.onrender.com) and try:
+- "Calculate 25 * 17"
+- "Search for latest AI news"
+- "Help me with Python coding"
+
+### Local Integration Test
 ```bash
 python test_gemini.py
 ```
@@ -129,8 +204,8 @@ python test_gemini.py
 🤖 Testing with message: Hello! Can you help me calculate 15 + 27?
 ✅ Response received:
 📝 Content: The calculation 15 + 27 equals 42...
-🔧 Tools used: 13
-📋 Steps: 13
+🔧 Tools used: 1
+📋 Steps: 1
 🎉 Gemini integration test passed!
 ```
 
@@ -142,7 +217,7 @@ pytest tests/
 ## 🔧 Configuration
 
 ### Environment Variables
-Set these in your `.env` file:
+Set these in your `.env` file for local development:
 
 | Variable | Description | Default |
 |----------|-------------|---------|
@@ -155,25 +230,25 @@ Set these in your `.env` file:
 ### Getting Gemini API Key
 1. Visit [Google AI Studio](https://makersuite.google.com/app/apikey)
 2. Create a new API key
-3. Copy the key to your `.env` file
+3. Copy the key to your `.env` file (for local) or deployment platform
 
 ## 🎮 How It Works
 
 1. **User Input**: Send a message via web interface or API
-2. **Planning**: CIDion analyzes the request and creates a step-by-step plan
+2. **AI Processing**: CIDion (Gemini-powered) analyzes the request
 3. **Tool Selection**: Automatically determines which tools are needed
-4. **Execution**: Runs tools in sequence and gathers results
-5. **Response**: Provides a comprehensive answer based on tool outputs
+4. **Execution**: Runs tools and gathers results
+5. **Clean Response**: Provides a professional answer (no debug clutter)
 6. **Memory**: Stores conversation for context in future interactions
 
-## 🔍 Debug Mode
+## 🎨 User Interface
 
-CIDion includes an optional debug mode that shows:
-- 🧠 **Thinking Process**: Step-by-step reasoning
-- 🔧 **Tools Used**: Which tools were called and with what parameters
-- 📋 **Execution Steps**: Detailed breakdown of actions taken
-
-Toggle debug mode in the web interface to see behind-the-scenes operations.
+CIDion features a modern, clean interface with:
+- **Custom Branding**: "Bol bsdk, kya chahiye tereko?" heading
+- **Professional Fonts**: Roboto Serif for headings, Trebuchet MS for chat
+- **Responsive Design**: Works on desktop and mobile
+- **Clean Messaging**: Only shows AI responses (no debug info by default)
+- **Welcome Box**: Centered introduction with available capabilities
 
 ## 🔌 API Endpoints
 
@@ -185,6 +260,8 @@ Toggle debug mode in the web interface to see behind-the-scenes operations.
 | `/api/health` | GET | System health check |
 | `/docs` | GET | Interactive API documentation |
 
+**Live API**: All endpoints available at https://cidion-bol-bsdk.onrender.com
+
 ## 🛡️ Error Handling
 
 CIDion includes robust error handling:
@@ -192,17 +269,23 @@ CIDion includes robust error handling:
 - **Invalid Input**: Clear error messages for malformed requests
 - **Network Issues**: Retry logic for external API calls
 - **Memory Errors**: Automatic database recovery
+- **Deployment Issues**: Health checks and monitoring
 
 ## 🚀 Performance
 
-- **Response Time**: Typically 2-5 seconds for complex multi-tool queries
+- **Response Time**: 2-5 seconds for complex queries
 - **Concurrency**: Supports multiple simultaneous users
-- **Memory Usage**: Efficient SQLite-based conversation storage
-- **Scalability**: Ready for production deployment
+- **Memory Usage**: Efficient SQLite-based storage
+- **Scalability**: Production-ready deployment
+- **Global Access**: Available worldwide via Render.com
 
 ## 🔄 Recent Updates
 
 - ✅ **v1.0.0**: Initial release with Gemini integration
+- ✅ **v1.1.0**: Clean UI with professional fonts and branding
+- ✅ **v1.2.0**: Live deployment on Render.com
+- ✅ **v1.3.0**: Optimized user experience (no debug clutter)
+- ✅ **v1.4.0**: Mobile-responsive design and performance improvements
 - ✅ **Clean UI**: Removed verbose debug output by default
 - ✅ **Debug Toggle**: Optional transparency mode
 - ✅ **Tool Optimization**: Improved tool selection and execution
@@ -224,6 +307,13 @@ MIT License - see LICENSE file for details.
 
 ### Common Issues
 
+**Live Demo Not Loading**
+- Wait 30-60 seconds for the free tier to wake up
+- Try refreshing the page
+- Check [https://cidion-bol-bsdk.onrender.com/api/health](https://cidion-bol-bsdk.onrender.com/api/health)
+
+**Local Setup Issues**
+
 **"GEMINI_API_KEY not found"**
 - Ensure your `.env` file exists and contains the API key
 - Check the key is valid at Google AI Studio
@@ -232,22 +322,30 @@ MIT License - see LICENSE file for details.
 - Run `pip install -r requirements.txt`
 - Ensure you're in the project root directory
 
-**Server won't start**
+**Server won't start locally**
 - Check if port 8001 is already in use
 - Try a different port: `--port 8002`
 
 **Tools not working**
 - Check internet connection for web search
 - Verify file permissions for file operations
-- Enable debug mode to see detailed error messages
+- Ensure Gemini API key is valid and has sufficient quota
 
 ### Getting Help
 
 - 📧 Check the logs for detailed error messages
-- 🔧 Enable debug mode in the web interface
+- 🧪 Run the test suite to verify installation: `python test_gemini.py`
 - 📚 Review the API documentation at `/docs`
-- 🧪 Run the test suite to verify installation
+- 🌐 Try the live demo first: [https://cidion-bol-bsdk.onrender.com](https://cidion-bol-bsdk.onrender.com)
+
+### Deployment Issues
+
+- Check [DEPLOY.md](DEPLOY.md) for detailed deployment instructions
+- Verify environment variables are set correctly on your platform
+- Monitor the deployment logs for specific error messages
 
 ---
 
 **CIDion AI** - Your intelligent assistant that thinks, plans, and acts! 🤖✨
+
+**🌟 Try it now: [https://cidion-bol-bsdk.onrender.com](https://cidion-bol-bsdk.onrender.com)**
