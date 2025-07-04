@@ -47,8 +47,8 @@ class SessionInfo(BaseModel):
 def create_app() -> FastAPI:
     """Create and configure the FastAPI application."""
     app = FastAPI(
-        title="CIDion AI System",
-        description="An intelligent AI agent with tool calling capabilities",
+        title="CIDion",
+        description="AI assistant with tool calling capabilities",
         version="1.0.0"
     )
     
@@ -82,7 +82,10 @@ def create_app() -> FastAPI:
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>CIDion AI Assistant</title>
+            <title>CIDion</title>
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:wght@400;700;900&display=swap" rel="stylesheet">
             <style>
                 * {
                     margin: 0;
@@ -91,7 +94,7 @@ def create_app() -> FastAPI:
                 }
                 
                 body {
-                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                    font-family: 'Arial', 'Helvetica', sans-serif;
                     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                     min-height: 100vh;
                     display: flex;
@@ -120,13 +123,17 @@ def create_app() -> FastAPI:
                 }
                 
                 .header h1 {
-                    font-size: 24px;
-                    margin-bottom: 5px;
+                    font-size: 42px;
+                    font-weight: 900;
+                    margin-bottom: 12px;
+                    font-family: 'Roboto Serif', serif;
                 }
                 
                 .header p {
-                    opacity: 0.9;
-                    font-size: 14px;
+                    opacity: 0.95;
+                    font-size: 22px;
+                    font-weight: 700;
+                    font-family: 'Roboto Serif', serif;
                 }
                 
                 .chat-area {
@@ -144,12 +151,26 @@ def create_app() -> FastAPI:
                     padding-right: 10px;
                 }
                 
+                .welcome-box {
+                    background: #f8f9fa;
+                    border: 1px solid #e9ecef;
+                    border-radius: 15px;
+                    padding: 20px;
+                    margin: 20px auto 30px auto;
+                    max-width: 500px;
+                    text-align: center;
+                    font-family: 'Trebuchet MS', sans-serif;
+                    color: #6c757d;
+                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+                }
+                
                 .message {
                     margin-bottom: 15px;
                     padding: 12px 16px;
                     border-radius: 12px;
                     max-width: 80%;
                     word-wrap: break-word;
+                    font-family: 'Trebuchet MS', sans-serif;
                 }
                 
                 .user-message {
@@ -185,6 +206,7 @@ def create_app() -> FastAPI:
                     border: 2px solid #e0e0e0;
                     border-radius: 25px;
                     font-size: 14px;
+                    font-family: 'Arial', 'Helvetica', sans-serif;
                     outline: none;
                     transition: border-color 0.3s;
                 }
@@ -201,6 +223,7 @@ def create_app() -> FastAPI:
                     border-radius: 25px;
                     cursor: pointer;
                     font-size: 14px;
+                    font-family: 'Arial', 'Helvetica', sans-serif;
                     font-weight: 600;
                     transition: transform 0.2s;
                 }
@@ -241,25 +264,21 @@ def create_app() -> FastAPI:
         <body>
             <div class="container">
                 <div class="header">
-                    <h1>🤖 CIDion AI Assistant</h1>
-                    <p>Your intelligent assistant with tool calling capabilities</p>
-                    <div style="margin-top: 10px;">
-                        <label style="font-size: 12px; cursor: pointer;">
-                            <input type="checkbox" id="debugMode" style="margin-right: 5px;"> Debug Mode
-                        </label>
-                    </div>
+                    <h1>🤖 CIDion</h1>
+                    <p>Bol bsdk, kya chahiye tereko?</p>
                 </div>
                 
                 <div class="chat-area">
+                    <div class="welcome-box">
+                        👋 Hello! I'm your AI assistant with access to various tools. I can help you with:
+                        <br>• File operations (read, write, list)
+                        <br>• Web search and scraping
+                        <br>• Mathematical calculations
+                        <br>• Planning and executing complex tasks
+                        <br><br>What can I help you with?
+                    </div>
+                    
                     <div class="messages" id="messages">
-                        <div class="agent-message">
-                            👋 Hello! I'm your AI assistant with access to various tools. I can help you with:
-                            <br>• File operations (read, write, list)
-                            <br>• Web search and scraping
-                            <br>• Mathematical calculations
-                            <br>• Planning and executing complex tasks
-                            <br><br>What would you like me to help you with today?
-                        </div>
                     </div>
                     
                     <div class="input-area">
@@ -317,35 +336,18 @@ def create_app() -> FastAPI:
                             })
                         });
                         
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        
                         const data = await response.json();
                         sessionId = data.session_id;
                         
-                        // Check if debug mode is enabled
-                        const debugMode = document.getElementById('debugMode').checked;
-                        
-                        // Add agent response first (clean, main response)
+                        // ONLY show the clean agent response (no debug functionality)
                         const agentDiv = document.createElement('div');
                         agentDiv.className = 'message agent-message';
                         agentDiv.innerHTML = data.response.replace(/\\n/g, '<br>');
                         messagesDiv.appendChild(agentDiv);
-                        
-                        // Show debug information ONLY if debug mode is enabled
-                        if (debugMode) {
-                            if (data.thought_process && data.thought_process.length > 0) {
-                                const thinkingDiv = document.createElement('div');
-                                thinkingDiv.className = 'debug-info';
-                                thinkingDiv.innerHTML = '<strong>🧠 Thinking:</strong><br>' + data.thought_process.join('<br>');
-                                messagesDiv.appendChild(thinkingDiv);
-                            }
-                            
-                            if (data.tools_used && data.tools_used.length > 0) {
-                                const toolsDiv = document.createElement('div');
-                                toolsDiv.className = 'debug-info';
-                                const toolsList = data.tools_used.map(tool => `🔧 ${tool.name}`).join(', ');
-                                toolsDiv.innerHTML = '<strong>Tools used:</strong> ' + toolsList;
-                                messagesDiv.appendChild(toolsDiv);
-                            }
-                        }
                         
                         status.textContent = 'Ready';
                         
