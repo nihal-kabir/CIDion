@@ -1,5 +1,5 @@
 """
-Startup script for the Agentic AI application.
+Startup script for the CIDion AI application.
 Run this from the project root directory.
 """
 import os
@@ -15,7 +15,7 @@ def main():
     # Add project root to Python path
     sys.path.insert(0, project_root)
     
-    print("🚀 Starting Agentic AI Server...")
+    print("🚀 Starting CIDion AI Server...")
     print("📱 Web Interface: http://localhost:8000")
     print("📚 API Docs: http://localhost:8000/docs")
     print("🔧 Press Ctrl+C to stop")

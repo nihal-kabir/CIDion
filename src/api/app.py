@@ -1,5 +1,5 @@
 """
-FastAPI application for the Agentic AI system.
+FastAPI application for the CIDion AI system.
 """
 import os
 import uuid
@@ -47,7 +47,7 @@ class SessionInfo(BaseModel):
 def create_app() -> FastAPI:
     """Create and configure the FastAPI application."""
     app = FastAPI(
-        title="Agentic AI System",
+        title="CIDion AI System",
         description="An intelligent AI agent with tool calling capabilities",
         version="1.0.0"
     )
@@ -82,7 +82,7 @@ def create_app() -> FastAPI:
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Agentic AI Assistant</title>
+            <title>CIDion AI Assistant</title>
             <style>
                 * {
                     margin: 0;
@@ -241,7 +241,7 @@ def create_app() -> FastAPI:
         <body>
             <div class="container">
                 <div class="header">
-                    <h1>🤖 Agentic AI Assistant</h1>
+                    <h1>🤖 CIDion AI Assistant</h1>
                     <p>Your intelligent assistant with tool calling capabilities</p>
                     <div style="margin-top: 10px;">
                         <label style="font-size: 12px; cursor: pointer;">

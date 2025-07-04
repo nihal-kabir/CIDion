@@ -1,5 +1,5 @@
 """
-Main entry point for the Agentic AI application.
+Main entry point for the CIDion AI application.
 """
 import os
 import sys
@@ -23,7 +23,7 @@ def main():
     host = os.getenv("HOST", "localhost")
     port = int(os.getenv("PORT", 8000))
     
-    print(f"🚀 Starting Agentic AI Server on http://{host}:{port}")
+    print(f"🚀 Starting CIDion AI Server on http://{host}:{port}")
     print("📱 Web Interface: http://localhost:8000")
     print("📚 API Docs: http://localhost:8000/docs")
     

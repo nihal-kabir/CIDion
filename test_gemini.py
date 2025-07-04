@@ -1,5 +1,5 @@
 """
-Test script to verify Gemini API integration.
+Test script to verify CIDion AI Gemini API integration.
 """
 import os
 import sys
@@ -18,7 +18,7 @@ from src.memory.conversation import ConversationMemory
 async def test_gemini():
     """Test Gemini API integration."""
     
-    print("🧪 Testing Gemini API Integration...")
+    print("🧪 Testing CIDion AI Gemini API Integration...")
     
     # Get API key
     api_key = os.getenv("GEMINI_API_KEY")
@@ -58,7 +58,7 @@ async def test_gemini():
 if __name__ == "__main__":
     success = asyncio.run(test_gemini())
     if success:
-        print("\n🎉 Gemini integration test passed!")
+        print("\n🎉 CIDion AI integration test passed!")
     else:
-        print("\n💥 Gemini integration test failed!")
+        print("\n💥 CIDion AI integration test failed!")
         sys.exit(1)

@@ -1,8 +1,8 @@
-# 🎉 Agentic AI Project - Successfully Deployed!
+# 🎉 CIDion AI Project - Successfully Deployed!
 
 ## ✅ Status: WORKING
 
-The end-to-end agentic AI project has been successfully created and deployed using **Google Gemini API**.
+The end-to-end CIDion AI project has been successfully created and deployed using **Google Gemini API**.
 
 ## 🚀 What's Working
 

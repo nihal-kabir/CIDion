@@ -1,5 +1,5 @@
 @echo off
-echo 🚀 Starting Agentic AI Server...
+echo 🚀 Starting CIDion AI Server...
 echo 📍 Location: %cd%
 echo.
 
