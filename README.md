@@ -18,7 +18,7 @@ A complete end-to-end agentic AI system powered by Google Gemini API that demons
 ## 🏗️ Architecture
 
 ```
-copilot/
+CIDion/
 ├── src/
 │   ├── agent/          # Core AI agent logic with Gemini integration
 │   ├── tools/          # Tool implementations (6 tools available)
