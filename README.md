@@ -1,41 +1,47 @@
-# Agentic AI Project
+# Ag## Features
+
+- **AI Agent**: Gemini-powered agent with reasoning and tool calling
+- **Tool System**: Extensible tools for file operations, web search, calculations
+- **Memory Management**: Persistent conversation and task memory
+- **Task Planning**: Multi-step task breakdown and execution
+- **Web Interface**: Clean, responsive frontend for agent interaction
+- **API Backend**: FastAPI-based REST API Project
 
 A complete end-to-end agentic AI system that demonstrates AI agent capabilities with tool calling, task planning, memory management, and a web interface.
 
 ## Features
 
-- **AI Agent**: LLM-powered agent with reasoning and tool calling
-- **Tool System**: Extensible tools for file operations, web search, calculations
-- **Memory Management**: Persistent conversation and task memory
-- **Task Planning**: Multi-step task breakdown and execution
-- **Web Interface**: Clean, responsive frontend for agent interaction
-- **API Backend**: FastAPI-based REST API
+- **🤖 AI Agent**: LLM-powered agent with reasoning and tool calling
+- **🔧 Tool System**: Extensible tools for file operations, web search, calculations
+- **💾 Memory Management**: Persistent conversation and task memory
+- **📋 Task Planning**: Multi-step task breakdown and execution
+- **🌐 Web Interface**: Clean, responsive frontend for agent interaction
+- **⚡ API Backend**: FastAPI-based REST API
 
-## Architecture
+## Quick Start
 
+### Option 1: Automated Setup (Recommended)
+```bash
+# Run the setup script
+python setup.py
+
+# Edit .env file with your OpenAI API key
+# OPENAI_API_KEY=your_api_key_here
+
+# Start the server
+python -m src.main
 ```
-├── src/
-│   ├── agent/          # Core AI agent logic
-│   ├── tools/          # Tool implementations
-│   ├── memory/         # Memory management
-│   ├── api/            # FastAPI backend
-│   └── frontend/       # Web interface
-├── tests/              # Test suite
-├── data/               # Data storage
-└── docs/               # Documentation
-```
 
-## Setup
-
+### Option 2: Manual Setup
 1. **Install Dependencies**
    ```bash
-   pip install -r requirements.txt
+   pip install fastapi uvicorn openai pydantic python-multipart aiofiles requests beautifulsoup4 python-dotenv jinja2 aiosqlite
    ```
 
 2. **Environment Setup**
    ```bash
    cp .env.example .env
-   # Edit .env with your OpenAI API key
+   # Edit .env with your Gemini API key
    ```
 
 3. **Run the Application**
@@ -45,6 +51,38 @@ A complete end-to-end agentic AI system that demonstrates AI agent capabilities 
 
 4. **Access Web Interface**
    Open http://localhost:8000 in your browser
+
+## Project Structure
+
+```
+├── src/
+│   ├── agent/          # Core AI agent logic
+│   │   ├── core.py     # Main agent implementation
+│   │   └── __init__.py
+│   ├── tools/          # Tool implementations
+│   │   ├── base.py     # Tool framework
+│   │   ├── file_ops.py # File operations
+│   │   ├── web_tools.py # Web search & scraping
+│   │   ├── calculator.py # Mathematical calculations
+│   │   └── __init__.py
+│   ├── memory/         # Memory management
+│   │   ├── conversation.py # Conversation storage
+│   │   └── __init__.py
+│   ├── api/            # FastAPI backend
+│   │   ├── app.py      # Main API application
+│   │   └── __init__.py
+│   ├── config.py       # Configuration settings
+│   └── main.py         # Application entry point
+├── tests/              # Test suite
+├── data/               # Data storage
+├── docs/               # Documentation
+├── .github/            # GitHub/Copilot configuration
+├── .vscode/            # VS Code configuration
+├── requirements.txt    # Python dependencies
+├── setup.py           # Setup script
+├── example.py         # Usage examples
+└── README.md          # This file
+```
 
 ## Usage
 
@@ -66,7 +104,7 @@ response = requests.post("http://localhost:8000/api/chat", json={
 
 Set these environment variables in `.env`:
 
-- `OPENAI_API_KEY`: Your OpenAI API key
+- `GEMINI_API_KEY`: Your Google Gemini API key
 - `LOG_LEVEL`: Logging level (DEBUG, INFO, WARNING, ERROR)
 - `HOST`: Server host (default: localhost)
 - `PORT`: Server port (default: 8000)

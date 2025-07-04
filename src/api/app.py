@@ -10,10 +10,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Dict, Any, Optional
 import logging
+from dotenv import load_dotenv
 
 from src.agent import Agent
 from src.tools import create_tool_manager
 from src.memory import ConversationMemory
+
+# Load environment variables
+load_dotenv()
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -61,11 +65,11 @@ def create_app() -> FastAPI:
     tool_manager = create_tool_manager()
     memory = ConversationMemory()
     
-    # Get OpenAI API key
-    api_key = os.getenv("OPENAI_API_KEY")
+    # Get Gemini API key
+    api_key = os.getenv("GEMINI_API_KEY")
     if not api_key:
-        logger.warning("OPENAI_API_KEY not found. Set it in .env file for full functionality.")
-        api_key = "dummy-key"  # For testing without OpenAI
+        logger.warning("GEMINI_API_KEY not found. Set it in .env file for full functionality.")
+        api_key = "dummy-key"  # For testing without Gemini
     
     agent = Agent(api_key=api_key, tool_manager=tool_manager, memory=memory)
     
