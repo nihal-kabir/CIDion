@@ -65,10 +65,11 @@ def create_app() -> FastAPI:
     tool_manager = create_tool_manager()
     memory = ConversationMemory()
     
-    # Get Gemini API key
+    # Get configuration from environment
     api_key = os.getenv("GEMINI_API_KEY")
+    
     if not api_key:
-        logger.warning("GEMINI_API_KEY not found. Set it in .env file for full functionality.")
+        logger.warning("GEMINI_API_KEY not found. Set it in environment variables for full functionality.")
         api_key = "dummy-key"  # For testing without Gemini
     
     agent = Agent(api_key=api_key, tool_manager=tool_manager, memory=memory)
