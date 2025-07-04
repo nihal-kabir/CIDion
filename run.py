@@ -16,8 +16,8 @@ def main():
     sys.path.insert(0, project_root)
     
     print("🚀 Starting CIDion AI Server...")
-    print("📱 Web Interface: http://localhost:8000")
-    print("📚 API Docs: http://localhost:8000/docs")
+    print("📱 Web Interface: http://localhost:8001")
+    print("📚 API Docs: http://localhost:8001/docs")
     print("🔧 Press Ctrl+C to stop")
     print("-" * 50)
     
@@ -28,7 +28,7 @@ def main():
             "src.api.app:create_app",
             "--factory",
             "--host", "localhost",
-            "--port", "8000",
+            "--port", "8001",
             "--reload"
         ], check=True)
     except KeyboardInterrupt:

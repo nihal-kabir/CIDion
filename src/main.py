@@ -21,11 +21,11 @@ def main():
     
     # Get configuration from environment
     host = os.getenv("HOST", "localhost")
-    port = int(os.getenv("PORT", 8000))
+    port = int(os.getenv("PORT", 8001))
     
     print(f"🚀 Starting CIDion AI Server on http://{host}:{port}")
-    print("📱 Web Interface: http://localhost:8000")
-    print("📚 API Docs: http://localhost:8000/docs")
+    print("📱 Web Interface: http://localhost:8001")
+    print("📚 API Docs: http://localhost:8001/docs")
     
     # Start the server
     uvicorn.run(

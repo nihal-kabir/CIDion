@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     # API Configuration
     openai_api_key: Optional[str] = None
     host: str = "localhost"
-    port: int = 8000
+    port: int = 8001
     
     # Database Configuration
     database_url: str = "sqlite:///data/agent.db"

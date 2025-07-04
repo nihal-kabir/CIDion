@@ -1,6 +1,10 @@
 # CIDion AI - Intelligent Assistant with Tool Calling
 
-A complete end-to-end agentic AI system powered by Google Gemini API that demonstrates AI agent capabilities with tool calling, task planning, memory management, and a clean web interface.
+A complete end-to-end agenti### Via Web Interface
+1. Open http://localhost:8001 in your browser
+2. Type your question: *"Calculate 15 * 27 and explain the result"*
+3. Watch CIDion plan and execute using available tools
+4. Toggle "Debug Mode" to see internal reasoning (optional)system powered by Google Gemini API that demonstrates AI agent capabilities with tool calling, task planning, memory management, and a clean web interface.
 
 ## 🚀 Features
 
@@ -55,14 +59,14 @@ Your `.env` file should contain:
 GEMINI_API_KEY=your_gemini_api_key_here
 LOG_LEVEL=INFO
 HOST=localhost
-PORT=8000
+PORT=8001
 ```
 
 ### 3. Start the Application
 
 **Option A: Simple startup**
 ```bash
-python -m uvicorn src.api.app:create_app --factory --host localhost --port 8000 --reload
+python -m uvicorn src.api.app:create_app --factory --host localhost --port 8001 --reload
 ```
 
 **Option B: Use startup scripts**
@@ -77,21 +81,21 @@ python run.py
 ```
 
 ### 4. Access the Application
-- **🌐 Web Interface**: http://localhost:8000
-- **📚 API Documentation**: http://localhost:8000/docs
-- **❤️ Health Check**: http://localhost:8000/api/health
+- **🌐 Web Interface**: http://localhost:8001
+- **📚 API Documentation**: http://localhost:8001/docs
+- **❤️ Health Check**: http://localhost:8001/api/health
 
 ## 💬 Usage Examples
 
 ### Via Web Interface
-1. Open http://localhost:8000 in your browser
+1. Open http://localhost:8001 in your browser
 2. Type your question: *"Calculate 15 * 27 and explain the result"*
 3. Watch CIDion plan and execute using available tools
 4. Toggle "Debug Mode" to see internal reasoning (optional)
 
 ### Via API
 ```bash
-curl -X POST "http://localhost:8000/api/chat" \
+curl -X POST "http://localhost:8001/api/chat" \
   -H "Content-Type: application/json" \
   -d '{
     "message": "Search for the latest AI news and summarize the top 3 articles"
@@ -102,7 +106,7 @@ curl -X POST "http://localhost:8000/api/chat" \
 ```python
 import requests
 
-response = requests.post("http://localhost:8000/api/chat", json={
+response = requests.post("http://localhost:8001/api/chat", json={
     "message": "List files in the current directory and read any README file"
 })
 
@@ -145,7 +149,7 @@ Set these in your `.env` file:
 | `GEMINI_API_KEY` | Your Google Gemini API key | Required |
 | `LOG_LEVEL` | Logging level (DEBUG, INFO, WARNING, ERROR) | INFO |
 | `HOST` | Server host address | localhost |
-| `PORT` | Server port number | 8000 |
+| `PORT` | Server port number | 8001 |
 | `DATABASE_URL` | SQLite database path | sqlite:///data/agent.db |
 
 ### Getting Gemini API Key
@@ -229,8 +233,8 @@ MIT License - see LICENSE file for details.
 - Ensure you're in the project root directory
 
 **Server won't start**
-- Check if port 8000 is already in use
-- Try a different port: `--port 8001`
+- Check if port 8001 is already in use
+- Try a different port: `--port 8002`
 
 **Tools not working**
 - Check internet connection for web search

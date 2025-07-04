@@ -18,12 +18,12 @@ pip install -r requirements.txt
 
 echo.
 echo 🚀 Starting server...
-echo 📱 Web Interface: http://localhost:8000
-echo 📚 API Docs: http://localhost:8000/docs
+echo 📱 Web Interface: http://localhost:8001
+echo 📚 API Docs: http://localhost:8001/docs
 echo 🔧 Press Ctrl+C to stop
 echo ==================================================
 
 REM Start the server
-python -m uvicorn src.api.app:create_app --factory --host localhost --port 8000 --reload
+python -m uvicorn src.api.app:create_app --factory --host localhost --port 8001 --reload
 
 pause

@@ -105,8 +105,8 @@ def create_app() -> FastAPI:
                     border-radius: 20px;
                     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
                     width: 100%;
-                    max-width: 800px;
-                    height: 600px;
+                    max-width: 1000px;
+                    height: 750px;
                     display: flex;
                     flex-direction: column;
                     overflow: hidden;
@@ -323,7 +323,13 @@ def create_app() -> FastAPI:
                         // Check if debug mode is enabled
                         const debugMode = document.getElementById('debugMode').checked;
                         
-                        // Show debug information if enabled
+                        // Add agent response first (clean, main response)
+                        const agentDiv = document.createElement('div');
+                        agentDiv.className = 'message agent-message';
+                        agentDiv.innerHTML = data.response.replace(/\\n/g, '<br>');
+                        messagesDiv.appendChild(agentDiv);
+                        
+                        // Show debug information ONLY if debug mode is enabled
                         if (debugMode) {
                             if (data.thought_process && data.thought_process.length > 0) {
                                 const thinkingDiv = document.createElement('div');
@@ -340,12 +346,6 @@ def create_app() -> FastAPI:
                                 messagesDiv.appendChild(toolsDiv);
                             }
                         }
-                        
-                        // Add agent response (clean, no thinking process or tools shown)
-                        const agentDiv = document.createElement('div');
-                        agentDiv.className = 'message agent-message';
-                        agentDiv.innerHTML = data.response.replace(/\\n/g, '<br>');
-                        messagesDiv.appendChild(agentDiv);
                         
                         status.textContent = 'Ready';
                         
